@@ -63,6 +63,10 @@ A prepared file is available via Zenodo. Alternatively, you can prepare the file
 
 
 > ### {% icon hands_on %} Hands-on:
+> First of all, create a new history.
+>
+>    {% include snippets/create_new_history.md %}
+>
 > **Option 1**
 > 1. Upload the file in Galaxy from the Zenodo link (https://zenodo.org/record/2598415/files/1AKI_clean.pdb)
 >
@@ -72,11 +76,21 @@ A prepared file is available via Zenodo. Alternatively, you can prepare the file
 > {% include snippets/import_via_link.md %}
 {: .hands_on}
 
+> ### {% icon tip %} Background: What is the PDB (Protein Data Bank) and format?
+>
+> The Protein Data Bank (PDB) format contains atomic coordinates of biomolecules and provides a standard representation for macromolecular structure data derived from X-ray diffraction and NMR studies. Each structure is stored under a four-letter accession code. For example, the PDB file we will use is assigned the code [1AKI](https://www.rcsb.org/pdb/explore/explore.do?structureId=1AKI)).
+>
+> More resources:
+>
+>  -  Multiple structures are stored and can be queried at [https://www.rcsb.org/](https://www.rcsb.org/)
+>  - Documentation describing the PDB file format is available from the wwPDB at [http://www.wwpdb.org/documentation/file-format.php](http://www.wwpdb.org/documentation/file-format.php).
+{: .tip}
+
 # Setup
 
 The **setup** {% icon tool %} tool uses the PDB input to create three files which will be required for MD simulation.
 
-Firstly, a topology for the protein structure is prepared. The topology file contains all the information required to describe the molecule for the purposes of simulation - atom masses, bond lengths and angles, charges. A force field and water model must be selected for topology calculation. Multiple choices are available for each; we will use the OPLS/AA force field and SPC/E water model.
+Firstly, a topology for the protein structure is prepared. The topology file contains all the information required to describe the molecule for the purposes of simulation - atom masses, bond lengths and angles, charges. Note that this automatic construction of a topology is only possible if the building blocks of the molecules (i.e. amino acids in the case of a protein) are precalculated for the given force field. A force field and water model must be selected for topology calculation. Multiple choices are available for each; we will use the OPLS/AA force field and SPC/E water model.
 
 Secondly, a GRO structure file is created, storing the structure of the protein. It also defines the unit cell 'box', centered on the structure. Options include box dimensions and shape; here, while a cuboidal box may be most intuitive, rhombic dodecahedron is the most efficient option, as it can contain the protein using the smallest volume, thus reducing the simulation resources devoted to the solvent.
 
@@ -97,11 +111,21 @@ In summary, this tool will:
 >    - *"Box type"*: `Rectangular box with all sides equal`
 >    - *"Generate detailed log"*: `yes`
 >
+> > ### {% icon question %} Question
+> >
+> > Why is it necessary to provide an input structure containing no non-protein molecules?
+> >
+> > > ### {% icon solution %} Solution
+> > > Automatic topology construction only succeeds if the components of the structure are recognized. For example, providing a structure of a protein in complex with a non-protein ligand or cofactor will result in an error.
+> > {: .solution}
+> {: .question}
+>
 {: .hands_on}
+
 
 # Solvation
 
-The next stage is protein solvation, performed using **solvate** {% icon tool %}. Water molecules are added to the structure and topology files to fill the unit cell. At this stage ions are also automatically added to neutralize the charge of the system. In our case, as lysozyme has a charge of +8, 8 chloride anions are added.
+The next stage is protein solvation, performed using **solvate** {% icon tool %}. Water molecules are added to the structure and topology files to fill the unit cell. At this stage sodium or chloride ions are also automatically added to neutralize the charge of the system. In our case, as lysozyme has a charge of +8, 8 chloride anions are added.
 
 This tool will:
 - add water molecules to fill the box defined in the setup
@@ -206,6 +230,16 @@ Having stabilized the temperature of the system with NVT equilibration, we also 
 >    - *"Structure output"*: `Return the .gro structure`
 >    - *"Generate detailed log"*: `yes`
 {: .hands_on}
+
+> > ### {% icon question %} Question
+> >
+> > Why is the position of the protein restrained during equilibration?
+> >
+> > > ### {% icon solution %} Solution
+> > > The purpose of equilibration is to stabilize the temperature and pressure of the system; these are overwhelmingly dependent on the solvent. Structural changes in the protein are an additional complicating variable, which can more simply be removed by restraining the protein.
+> > {: .solution}
+> {: .question}
+
 
 # Production simulation
 Now that equilibration is complete, we can release the position restraints. We are now finally ready to perform a production MD simulation.

@@ -9,24 +9,6 @@ contributors:
 ---
 
 
-# Computational Chemistry
-![](../images/scruct_logo.png)
-
-???
-
-ICEBREAKER TIME
-Names. Ask who is from where. Stage of qualification. Interests etc. 
-
----
-
-# Resources for today & registration *
-- https://github.com/scientificomputing/bridge
-- https://events.chpc.ac.za/event/40/
-  - Register on ilifu
-  - Register on Github and join Gitter channel
-  - Download and install VMD
-
----
 # Purpose
 
 - Bridge between theory and experiment.
@@ -98,7 +80,7 @@ Names. Ask who is from where. Stage of qualification. Interests etc.
 
 Topology and Parameter files
 - Topology: atom types, charges, connectivities
-- Parameters: Force constants and non-bonded interactions vdW and electrostatics)
+- Parameters: Force constants and non-bonded interactions (van der Waals and electrostatics)
 
 For example the general CHARMM, AMBER, OPLS etc.
 .footnote[ [Force field defined](https://en.wikipedia.org/wiki/Force_field_(chemistry) , [Force fields list](https://en.wikipedia.org/wiki/Comparison_of_force_field_implementations)]
@@ -125,7 +107,7 @@ For example the general CHARMM, AMBER, OPLS etc.
 ### Steps in a typical MD simulation
 
 1. Setup and preparation
-  - Read PDB and parameters. Mutate residues, solvate, assign protonations states etc.
+  - Read PDB and parameters. Mutate residues, solvate, assign protonation states etc.
 
 --
 
@@ -150,8 +132,8 @@ For example the general CHARMM, AMBER, OPLS etc.
 
 --
 
-6. Analysis and analytics
-  - Timeseries and Correlation, PCA
+6. Analysis
+  - Timeseries and correlation, PCA
 
 
 --- 
@@ -194,13 +176,13 @@ Thermodynamic ensembles are in statistical equilibrium over particular macroscop
 
 ---
 
-# Molecular Dynamics Engines
+# Molecular dynamics engines
 
 These are programs that create the ensemble (create trajectories).
 - [CHARMM](https://www.charmm.org/charmm/)
 - [NAMD](http://www.ks.uiuc.edu/Research/namd/)
-- GROMACS
-- OpenMM
+- [GROMACS](http://www.gromacs.org/)
+- [OpenMM](http://openmm.org/)
 
 .footnote[[list of available software](https://en.wikipedia.org/wiki/Comparison_of_software_for_molecular_mechanics_modeling) ]
 
@@ -251,11 +233,11 @@ These are programs that create the ensemble (create trajectories).
 
 --
 
-- Use coding best practices etc. , this can be a whole new challenge (!)
+- Use coding best practices etc., this can be a whole new challenge (!)
 
 --
 
-- Define and implement a data managent plan (DMP),
+- Define and implement a data management plan (DMP)
 
 --
 
@@ -306,7 +288,7 @@ https://github.com/scientificomputing/bridge
 
 1. Visualisation ([tutorial](../tutorials/formats-visualisation/slides.html))  
 2. Setting up molecular systems ([tutorial](../tutorials/setting-up-molecular-systems/tutorial.html))
-3. Running molecular dynamics simulations ([tutorial](../tutorials/md-simulations/tutorial.html))
+3. Running molecular dynamics simulations with NAMD ([tutorial](../tutorials/md-simulation-namd/tutorial.html)) and GROMACS ([tutorial](../tutorials/md-simulation-gromacs/tutorial.html))
 4. Analysing molecular dynamics simulations ([tutorial](../tutorials/analysis-md-simulations/tutorial.html)) 
 
 ---

@@ -3,15 +3,18 @@ name: computational-chemistry
 type: use
 title: Computational chemistry
 summary: Modelling, simulation and analysis of biomolecular systems
+
 requirements:
   -
-    title: "Galaxy introduction"
     type: "internal"
-    link: "/introduction/"
+    topic_name: introduction
+
 docker_image: "scientificomputing/bridge"
 maintainers:
   - chrisbarnettster
   - tsenapathi
+  - simonbray
+  - bgruening
 references:
   - authors: galaxycomputationalchemistry
     title: The Galaxy Computational Chemistry group
