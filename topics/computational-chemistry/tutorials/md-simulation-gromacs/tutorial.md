@@ -25,9 +25,9 @@ contributors:
 
 Molecular dynamics (MD) is a method to simulate molecular motion by iterative application of Newton's laws of motion. It is often applied to large biomolecules such as proteins or nucleic acids.
 
-Multiple packages exist for performing MD simulations. One of the most popular is the open-source GROMACS, which is the subject of this tutorial. Other MD packages which are also provided in Galaxy are NAMD and CHARMM (link).
+Multiple packages exist for performing MD simulations. One of the most popular is the open-source GROMACS, which is the subject of this tutorial. Other MD packages which are also provided in Galaxy are [NAMD](../md-simulation-namd/tutorial.html) and CHARMM.
 
-This is a introductory guide to using GROMACS in Galaxy to prepare and perform molecular dynamics on a small protein (lysozyme). It is based on the GROMACS tutorial provided by Justin Lemkul [here](http://www.mdtutorials.com/gmx/lysozyme/index.html).
+This is a introductory guide to using GROMACS in Galaxy to prepare and perform molecular dynamics on a small protein. It is based on the GROMACS tutorial provided by Justin Lemkul [here](http://www.mdtutorials.com/gmx/lysozyme/index.html) - please consult it if you are interested in a more detailed, technical guide to GROMACS. For the tutorial, we will perform our simulations on hen egg white lysozyme.
 
 > ### Agenda
 >
@@ -46,10 +46,10 @@ A GROMACS workflow is provided for this tutorial [here](https://usegalaxy.eu/u/s
 
 ![GROMACS workflow](images/workflow_gromacs.png "The basic GROMACS workflow")
 
-Overall, the workflow takes a PDB (Protein Data Bank) structure file as input and returns a 'trajectory'. This is a binary file that records the atomic coordinates at multiple time steps, and therefore shows the dynamic motion of the molecule.
+Overall, the workflow takes a PDB (Protein Data Bank) structure file as input and returns a 'trajectory'. This is a binary file that records the atomic coordinates at multiple time steps, and therefore shows the dynamic motion of the molecule. Using visualization software, we can display this trajectory as a film displaying the molecular motion of the protein.
 
 The process can be divided into multiple stages:
- 1. Setup (loading data, solvation)
+ 1. Setup (loading data, solvation i.e. addition of water and ions)
  2. Energy minimization of the protein
  3. Equilibration of the solvent around the protein (with two ensembles, NVT and NPT)
  4. Production simulation, which produces our trajectory.
@@ -68,7 +68,7 @@ A prepared file is available via Zenodo. Alternatively, you can prepare the file
 >    {% include snippets/create_new_history.md %}
 >
 > **Option 1**
-> 1. Upload the file in Galaxy from the Zenodo link (https://zenodo.org/record/2598415/files/1AKI_clean.pdb)
+> 1. Upload the file in Galaxy from the Zenodo link: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2598415.svg)](https://doi.org/10.5281/zenodo.2598415)
 >
 > **Option 2**
 > 1. Go to the [PDB website](https://www.rcsb.org/) and search for the code 1AKI. Download the structure and upload to Galaxy.
@@ -85,6 +85,11 @@ A prepared file is available via Zenodo. Alternatively, you can prepare the file
 >  -  Multiple structures are stored and can be queried at [https://www.rcsb.org/](https://www.rcsb.org/)
 >  - Documentation describing the PDB file format is available from the wwPDB at [http://www.wwpdb.org/documentation/file-format.php](http://www.wwpdb.org/documentation/file-format.php).
 {: .tip}
+
+## Lysozyme
+The protein we will look at in this tutorial is hen egg white [lysozyme](https://en.wikipedia.org/wiki/Lysozyme), a widely studied enzyme which is capable of breaking down the polysaccharides of many bacterial cell walls. It is a small (129 residues), highly stable globular protein, which makes it ideal for our purposes.
+
+![Structure of lysozyme](images/lysozyme_str.png "Structure of lysozyme")
 
 # Setup
 
@@ -144,7 +149,7 @@ This tool will:
 
 # Energy minimization
 
-To obviate any steric clashes or unusual geometry which would artificially raise the energy of the system, we must relax the structure by running an energy minimization (EM) algorithm.
+To remove any steric clashes or unusual geometry which would artificially raise the energy of the system, we must relax the structure by running an energy minimization (EM) algorithm.
 
 Here, and in the later steps, two options are presented under 'Parameter input'. Firstly, the default setting, which we will use for this tutorial, requires options to be selected through the Galaxy interface. Alternatively, you can choose to upload an MDP (molecular dynamics parameters) file to define the simulation parameters. Using your own MDP file will allow greater customization, as not all parameters are implemented in Galaxy (yet); however, it requires a more advanced knowledge of GROMACS. Description of all parameters can be found [here](http://manual.gromacs.org/documentation/2018/user-guide/mdp-options.html).
 
@@ -269,7 +274,7 @@ Now that equilibration is complete, we can release the position restraints. We a
 
 # Conclusion
 
-After completing the steps, or running the workflow, we have successfully produced a trajectory whcih describes the atomic motion of the system. This can be viewed using molecular visualization software or analysed further; please visit the visualization and analysis tutorials for more information.
+After completing the steps, or running the workflow, we have successfully produced a trajectory (the xtc file) whcih describes the atomic motion of the system. This can be viewed using molecular visualization software or analysed further; please visit the visualization and [analysis](../analysis-md-simulations) tutorials for more information.
 
 ![Trajectory](images/traj.gif "Trajectory produced using the GROMACS workflow, visualized with the NGL viewer")
 

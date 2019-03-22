@@ -43,7 +43,7 @@ contributors:
 
 In this tutorial we will perform a simulation with the popular [NAMD](http://www.ks.uiuc.edu/Research/namd/) molecular dynamics software.
 
-This tutorial is made up of two parts. In the first section, we will look at preparation of a system (solvation, charge neutralisation, energy minimisation) using CHARMM. In the second section, we will perform an equilibration and production simulation, using NAMD. If you already completed the [Setting up molecular systems](../setting-up-molecular-systems/tutorial.html) tutorial, which covers the use of the CHARMM graphical user interface (GUI), you have already prepared your system, so go straight to the second section, using the files you prepared earlier.
+This tutorial is made up of two parts. In the first section, we will look at preparation of a system (solvation, charge neutralisation, energy minimisation) using CHARMM. In the second section, we will perform an equilibration and production simulation, using NAMD. If you already completed the [Setting up molecular systems](../setting-up-molecular-systems/tutorial.html) tutorial, which covers the use of the CHARMM graphical user interface (GUI), you have already prepared your system, so go straight to the [second section](#namd-md-workflow), using the files you prepared earlier.
 
 The process can be accomplished by selecting each tool from the tools menu, or by importing the workflow. The workflow method is most efficient and the individual tools used in the workflows are discussed below. The entire workflow (preparation + simulation) is shown below for [CHARMM and NAMD](#figure-1).
 
@@ -177,5 +177,7 @@ This tool runs classical molecular dynamics simulations in NAMD using an NPT ens
 
 
 # Conclusion
+After completing the tutorial, you have successfully produced a trajectory (the dcd file) whcih describes the atomic motion of the system. You can view this file using molecular visualization software or perform further analysis; please visit the visualization and [analysis](../analysis-md-simulations) tutorials for more information.
+
 {:.no_toc}
 
