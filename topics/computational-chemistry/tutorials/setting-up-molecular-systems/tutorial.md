@@ -118,9 +118,7 @@ It is convenient to set up the molecular system outside Galaxy using a tool such
 
 ![CHARMM-GUI interface](images/charmmgui.png "The CHARMM-GUI interface")
 
-Go to the correct section depending on which MD engine you will be using:
- - [CHARMM](./tutorial.html#charmm)
- - [NAMD](./tutorial.html#namd)
+Go to the correct section depending on which MD engine you will be using.
 
 ## CHARMM
 
