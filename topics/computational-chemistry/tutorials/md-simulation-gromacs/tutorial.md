@@ -274,7 +274,7 @@ Now that equilibration is complete, we can release the position restraints. We a
 
 # Conclusion
 
-After completing the steps, or running the workflow, we have successfully produced a trajectory (the xtc file) whcih describes the atomic motion of the system. This can be viewed using molecular visualization software or analysed further; please visit the visualization and [analysis](../analysis-md-simulations) tutorials for more information.
+After completing the steps, or running the workflow, we have successfully produced a trajectory (the xtc file) which describes the atomic motion of the system. This can be viewed using molecular visualization software or analysed further; please visit the visualization and [analysis](../analysis-md-simulations/tutorial.html) tutorials for more information.
 
 ![Trajectory](images/traj.gif "Trajectory produced using the GROMACS workflow, visualized with the NGL viewer")
 

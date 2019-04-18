@@ -177,7 +177,7 @@ This tool runs classical molecular dynamics simulations in NAMD using an NPT ens
 
 
 # Conclusion
-After completing the tutorial, you have successfully produced a trajectory (the dcd file) whcih describes the atomic motion of the system. You can view this file using molecular visualization software or perform further analysis; please visit the visualization and [analysis](../analysis-md-simulations) tutorials for more information.
+After completing the steps, or running the workflow, we have successfully produced a trajectory (the xtc file) which describes the atomic motion of the system. This can be viewed using molecular visualization software or analysed further; please visit the visualization and [analysis](../analysis-md-simulations/tutorial.html) tutorials for more information.
 
 {:.no_toc}
 
