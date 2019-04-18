@@ -127,7 +127,7 @@ At this point we are ready to run the simulation workflow, which uses NAMD as a 
 
 Classical NVT dynamics, maintaining constant **n**umber of particles, **v**olume and **t**emperature.
 
-This tool runs classical molecular dynamics simulations in NAMD using an NVT ensemble. User can run the simulation in small time intervals. The coordinates, velocities and the extended system files can be use to restart the simulations. Harmonic restraints can be used. NAMD collective variable module is used to give RMSD harmonic restraints.
+This tool runs classical molecular dynamics simulations in NAMD using an NVT ensemble. User can run the simulation in small time intervals. The coordinates, velocities and the extended system files can be use to restart the simulations. If required, harmonic restraints can be used to maintain the protein shape. These restraints, in particular RMSD harmonic restraints can be added with the NAMD collective variable module.
 
 > ### {% icon hands_on %} Hands-on: NVT dynamics
 >

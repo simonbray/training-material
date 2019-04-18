@@ -199,6 +199,8 @@ Set up a waterbox. Use a size of 10 angstroms and choose a cubic box ('rectangul
 
 ### Generate the FFT automatically
 
+Particle Mesh Ewald(PME) summation is the method being used to calculate long-range interactions in this system. To improve the computational time a Fast Fourier Transform(FFT) is used.
+A detailed discussion of FFT will not be presented here, there are many articles on the work try out [Wikipedia](https://en.wikipedia.org/wiki/Ewald_summation) and [Ewald summation techniques in perspective: a survey](https://doi.org/10.1016/0010-4655(96)00016-1).
 ![Snapshot of CHARMM-GUI FFT section](images/charmmgui-fft.png "Setting up a FFT in CHARMM-GUI")
 
 ### Download the output

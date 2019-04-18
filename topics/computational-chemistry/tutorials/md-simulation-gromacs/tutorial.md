@@ -89,7 +89,7 @@ A prepared file is available via Zenodo. Alternatively, you can prepare the file
 ## Lysozyme
 The protein we will look at in this tutorial is hen egg white [lysozyme](https://en.wikipedia.org/wiki/Lysozyme), a widely studied enzyme which is capable of breaking down the polysaccharides of many bacterial cell walls. It is a small (129 residues), highly stable globular protein, which makes it ideal for our purposes.
 
-![Structure of lysozyme](images/lysozyme_str.png "Structure of lysozyme")
+![Structure of lysozyme openly available from https://commons.wikimedia.org/wiki/File:Lysozyme.png](images/Lysozyme.png "Structure of lysozyme")
 
 # Setup
 
