@@ -41,7 +41,7 @@ create-env: ## create conda environment
 	fi
 .PHONY: create-env
 
-ACTIVATE_ENV = source $(dir ${CONDA})conda activate ${CONDA_ENV}
+ACTIVATE_ENV = $(dir ${CONDA})conda activate ${CONDA_ENV}
 
 install: clean ## install dependencies
 	$(ACTIVATE_ENV) && \
