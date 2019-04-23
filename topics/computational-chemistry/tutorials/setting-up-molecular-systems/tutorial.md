@@ -188,7 +188,7 @@ Set up a waterbox. Use a size of 10 angstroms and choose a cubic box ('rectangul
 > > > ### {% icon solution %} Solution
 > > > Under periodic boundary conditions, we need to ensure the protein can never interact with its periodic image, otherwise artefacts are introduced. Allowing 10 angstroms between the protein and the box edge ensures the two images will always be at minimum 20 angstroms apart, which is sufficient.
 > > >
-> > > Some of the residues on the protein surface are charged and counterions need to be present nearby to neutralise them. Failure to explicitly model salt ions may destabilise the protein.
+> > > Some of the residues on the protein surface are charged and counter-ions need to be present nearby to neutralise them. Failure to explicitly model salt ions may destabilise the protein.
 > > {: .solution}
 > {: .question}
 
