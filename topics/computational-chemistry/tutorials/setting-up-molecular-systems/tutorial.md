@@ -118,9 +118,7 @@ It is convenient to set up the molecular system outside Galaxy using a tool such
 
 ![CHARMM-GUI interface](images/charmmgui.png "The CHARMM-GUI interface")
 
-Go to the correct section depending on which MD engine you will be using:
- - [CHARMM](#CHARMM)
- - [NAMD](#NAMD)
+Go to the correct section depending on which MD engine you will be using.
 
 ## CHARMM
 
@@ -190,7 +188,7 @@ Set up a waterbox. Use a size of 10 angstroms and choose a cubic box ('rectangul
 > > > ### {% icon solution %} Solution
 > > > Under periodic boundary conditions, we need to ensure the protein can never interact with its periodic image, otherwise artefacts are introduced. Allowing 10 angstroms between the protein and the box edge ensures the two images will always be at minimum 20 angstroms apart, which is sufficient.
 > > >
-> > > Some of the residues on the protein surface are charged and counterions need to be present nearby to neutralise them. Failure to explicitly model salt ions may destabilise the protein.
+> > > Some of the residues on the protein surface are charged and counter-ions need to be present nearby to neutralise them. Failure to explicitly model salt ions may destabilise the protein.
 > > {: .solution}
 > {: .question}
 
@@ -199,6 +197,8 @@ Set up a waterbox. Use a size of 10 angstroms and choose a cubic box ('rectangul
 
 ### Generate the FFT automatically
 
+Particle Mesh Ewald(PME) summation is the method being used to calculate long-range interactions in this system. To improve the computational time a Fast Fourier Transform(FFT) is used.
+A detailed discussion of FFT will not be presented here, there are many articles on the work try out [Wikipedia](https://en.wikipedia.org/wiki/Ewald_summation) and [Ewald summation techniques in perspective: a survey](https://doi.org/10.1016/0010-4655(96)00016-1).
 ![Snapshot of CHARMM-GUI FFT section](images/charmmgui-fft.png "Setting up a FFT in CHARMM-GUI")
 
 ### Download the output

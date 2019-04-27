@@ -89,7 +89,7 @@ A prepared file is available via Zenodo. Alternatively, you can prepare the file
 ## Lysozyme
 The protein we will look at in this tutorial is hen egg white [lysozyme](https://en.wikipedia.org/wiki/Lysozyme), a widely studied enzyme which is capable of breaking down the polysaccharides of many bacterial cell walls. It is a small (129 residues), highly stable globular protein, which makes it ideal for our purposes.
 
-![Structure of lysozyme](images/lysozyme_str.png "Structure of lysozyme, visualized using VMD.")
+![Structure of lysozyme openly available from https://commons.wikimedia.org/wiki/File:Lysozyme.png](images/Lysozyme.png "Structure of lysozyme")
 
 # Setup
 
@@ -274,7 +274,7 @@ Now that equilibration is complete, we can release the position restraints. We a
 
 # Conclusion
 
-After completing the steps, or running the workflow, we have successfully produced a trajectory (the xtc file) whcih describes the atomic motion of the system. This can be viewed using molecular visualization software or analysed further; please visit the visualization and [analysis](../analysis-md-simulations) tutorials for more information.
+After completing the steps, or running the workflow, we have successfully produced a trajectory (the xtc file) which describes the atomic motion of the system. This can be viewed using molecular visualization software or analysed further; please visit the visualization and [analysis](../analysis-md-simulations/tutorial.html) tutorials for more information.
 
 ![Trajectory](images/traj.gif "Trajectory produced using the GROMACS workflow, visualized with the NGL viewer")
 
