@@ -78,7 +78,7 @@ As described in [the slides](slides.html), we'll carry out some basic analysis b
 ## Workflow vs. individual tools
 You can choose to use the existing workflow shown above, or use tools one by one (see below).
 
-Have a look at published workflows (and histories) and choose Conformational Changes Analysis.
+Have a look at the published workflows (and histories) by navigating to 'Shared Data' in the upper tab on usegalaxy.eu and in the dropdown menu selecting 'Workflows'. Search for 'Bio3d' in the search box and choose 'MD Analysis using Bio3D'.
 ![Available workflows](images/published_workflows_update.png "Published workflows")
 
 ## RMSD
@@ -185,9 +185,9 @@ In summary:
 
 # Further analysis
 
-Further analyses are available, try out the advanced analysis workflow, which includes a Ramachandran plot and various timeseries.
+Further analyses are available; try out the [MDAnalysis workflow](https://usegalaxy.eu/u/tsenapathi/w/analysis-using-mdanalysis), which includes a Ramachandran plot and various timeseries.
 
-![Advanced analysis workflow](images/workflow_advancedanalysis.png "Advanced MD analysis workflow")
+![MDAnalysis workflow](images/workflow_mdanalysis.png "MD analysis workflow")
 
 # Conclusion
 {:.no_toc}
