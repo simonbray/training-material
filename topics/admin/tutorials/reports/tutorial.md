@@ -15,9 +15,10 @@ contributors:
   - natefoo
   - bgruening
   - slugger70
-  - erasche
+  - hexylena
+subtopic: features
 tags:
-  - ansible
+  - monitoring
 requirements:
   - type: "internal"
     topic_name: admin

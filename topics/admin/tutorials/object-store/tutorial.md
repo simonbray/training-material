@@ -13,9 +13,10 @@ key_points:
 - You can move data around without affecting users.
 contributors:
   - natefoo
-  - erasche
+  - hexylena
+subtopic: features
 tags:
- - ansible
+  - storage
 requirements:
  - type: "internal"
    topic_name: admin

@@ -25,9 +25,10 @@ key_points:
 contributors:
   - natefoo
   - bgruening
-  - erasche
+  - hexylena
 tags:
-  - ansible
+  - jobs
+subtopic: features
 requirements:
   - type: "internal"
     topic_name: admin
