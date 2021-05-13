@@ -1,72 +1,36 @@
 Contributing to BioBlend as a developer
 
-
-Table of contents 
-1 Introduction   2
-2 Development on GitHub   2
-2.1 GitHub repositories   2
-2.2 Contributing on GitHub   2
-3 Downloading Galaxy and BioBlend   2
-4 Structure of the Galaxy API   3
-4.1 Core concepts of the Galaxy interface   3
-5 Structure of the BioBlend library   4
-6 Hands On: Communicating with the Galaxy API   4
-6.1 Making a GET request   5
-6.2 Making a GET request with query parameters   6
-6.3 Making a POST request with a payload   6
-7 Hands On: Creating a BioBlend pull request   6
-7.1 Identifying the relevant Galaxy endpoint   7
-7.2 Constructing the correct method signature   7
-7.3 Adding the method body   8
-7.4 Adding the docstring   9
-7.5 Putting it all together   9
-7.6 Writing a test for our new method   9
-8 Running the BioBlend tests   10
-8.1 Approach 1: Using the ‘run_bioblend_tests.sh’ script   10
-8.2 Approach 2: Running the tests directly   11
-8.2.1 Caveat   11
-8.2.2 Starting the Galaxy server   11
-8.2.3 Running tests   12
-9 Tips   13
-9.1 Difference between GalaxyInstance and objects.GalaxyInstance   13
-9.2 Use of the ‘@test_util.skip_unless_galaxy’ decorator   13
-9.3 Controllers versus Managers in Galaxy   14
-9.4 IDs versus Encoded IDs   14
-9.5 Galaxy API parameter formats   14
-9.5.1 Direct parameters   14
-9.5.2 Keywords parameters   14
-9.5.3 The 'q' and 'qv' format   14
-9.6 Params vs Payload   15
-9.7 Determining the Galaxy version in BioBlend   15
-10 Conclusion   16
-Bibliography   16
-1  Introduction 
+# 1  Introduction 
 
 BioBlend [3] is a Python library for interacting with Galaxy [1].
 Galaxy is a server for accessible, reproducible and transparent computational research. It includes a web interface where users can design and perform tasks in a visual and interactive manner. The server also exposes this functionality through its REST-based Application Programming Interface (API).
 Computer programs can communicate with the Galaxy server through this API and perform similar tasks as can be achieved manually via the web interface. The program sends a network request to a URL of an API endpoint. The server then computes the result for this request and sends back a response to the program.
 BioBlend provides classes and methods that handle the specific details of this communication for Python programs.
 Similar libraries exists for interacting with Galaxy via other programming languages:
-•  blend4j: https://github.com/galaxyproject/blend4j
-•  blend4php: https://github.com/galaxyproject/blend4php
-•  clj-blend: https://github.com/chapmanb/clj-blend
-2  Development on GitHub 
+-  blend4j: https://github.com/galaxyproject/blend4j
+-  blend4php: https://github.com/galaxyproject/blend4php
+-  clj-blend: https://github.com/chapmanb/clj-blend
+
+
+# 2  Development on GitHub 
 
 Galaxy and BioBlend are developed as open source projects on GitHub and contributions are welcome!
-2.1  GitHub repositories 
 
-Galaxy: https://github.com/galaxyproject/galaxy
-BioBlend: https://github.com/galaxyproject/bioblend
-2.2  Contributing on GitHub 
+## 2.1  GitHub repositories
+ - Galaxy: https://github.com/galaxyproject/galaxy
+ - BioBlend: https://github.com/galaxyproject/bioblend
+
+## 2.2  Contributing on GitHub 
 
 To contribute to BioBlend, a GitHub account is required.
 Changes are proposed via a pull request (PR). This allows the project maintainers to review the changes and suggest improvements.
 The general steps are as follows:
-•  Fork the BioBlend repository
-•  Make changes in a new branch
-•  Open a pull request for this branch in the upstream BioBlend repository
+ -  Fork the BioBlend repository
+ -  Make changes in a new branch
+ -  Open a pull request for this branch in the upstream BioBlend repository
 Note: It is generally a good idea to enable “Allow edits and access to secrets by maintainers”. Enabling this option gives maintainers more freedom to help with the PR.
-3  Downloading Galaxy and BioBlend 
+
+# 3  Downloading Galaxy and BioBlend 
 
 Now we are ready to set up our development environment! Since BioBlend communicates with the Galaxy API, we must also set up a Galaxy server in order to test BioBlend functionality.
 We use the ‘git' versioning tool to download the repositories (https://git-scm.com).
@@ -75,12 +39,14 @@ To download Galaxy and set it up as a local repository, run:
 git clone git@github.com:galaxyproject/galaxy.git
 Likewise, to download BioBlend, run:
 git clone git@github.com:galaxyproject/bioblend.git
-4  Structure of the Galaxy API 
+
+# 4  Structure of the Galaxy API 
 
 The source code for the API endpoints is contained in various files under ‘lib/galaxy/webapps/galaxy/api/’. Each of these files contains a controller which exposes functionality for a specific entity. For example, the dataset-related functionality is contained in the ‘DatasetsController’ class in the ‘datasets.py' file.
 Additionally, the ‘builapp.py' file contains a complete listing of all the endpoints.
 Note: Different versions of Galaxy differ in the functionality that is implemented. The development version is named 'dev' and includes the most recent changes. Release versions are named according to their release date. These Galaxy releases can be accessed via git branches. At the time of writing BioBlend supports Galaxy releases 17.09 and later, although some functionality is not supported by all of these versions.
-4.1  Core concepts of the Galaxy interface 
+
+## 4.1  Core concepts of the Galaxy interface 
 
 This section provides succinct descriptions of the core concepts of the Galaxy interface, from the perspective of a BioBlend/Galaxy developer. This list is by no means complete, but it should help those not already familiar with Galaxy.
 Note: BioBlend provides seperate clients for interacting which each of these concepts. For example, the BioBlend client for jobs is the ‘JobsClient’ class.
@@ -93,13 +59,17 @@ History. A history represents a container that keeps track of actions performed 
 Dataset. A dataset represents digital data that can serve as input for a Job. It can be associated with (contained in) a history or a library. A dataset can be shared between users. Each time a dataset is copied between histories or libraries, a new History Dataset Association (HDA) or Library Dataset Association (LDA) is created. This naming scheme is used internally by the Galaxy relational database, but the terms might be encountered during BioBlend development as well.
 Dataset Collection. A dataset collection represents a collection of related datasets. Like a dataset, it can be associated with a history or a library. Each time it is copied or shared, a new History Dataset Collection Association (HDCA) or a Library Dataset Collection Association (LDCA) is created.
 Library. A library represent a container for datasets and dataset collections. Datasets that are contained in a library can be shared between multiple Galaxy users.
-5  Structure of the BioBlend library 
+
+
+# 5  Structure of the BioBlend library 
 
 BioBlend methods for the Galaxy API are stored under ‘bioblend/galaxy/’. The functionality for each Galaxy entity is in a seperate folder. For example, the methods for interacting with workflows are stored under ‘bioblend/galaxy/workflows’ in the ‘WorkflowsClient’ class.
 The tests for these methods are stored under ‘tests/‘. For example, the tests related to workflows are in the file ‘tests/TestGalaxyWorkflows.py’.
 The classic approach for accessing the Galaxy API is using the various clients and their methods. Each of these methods corresponds to one of the API endpoints. They send a request to the Galaxy server and return a Python dictionary representing the parsed JSON response. Alternatively, there is also BioBlend.objects [2], which provides an object-oriented API. Interaction with the API occurs via wrapper objects. These wrappers represent entity instances and provide methods to interact and manipulate them. For example, a wrapper could represent a single workflow. See section 9.1 for additional information.
 Note: BioBlend also provides methods for interacting with the Galaxy ToolShed and Cloudman. However, this tutorial focuses on the part of BioBlend which provides access to the Galaxy API.
-6  Hands On: Communicating with the Galaxy API 
+
+
+# 6  Hands On: Communicating with the Galaxy API 
 
 We will make some manual requests to get a better feel for the Galaxy API.
 We need a valid API key in order to communicate with the Galaxy server through the API.
@@ -107,7 +77,9 @@ A quick way to get an API key is to create a new user on our local Galaxy server
 In the following examples we make use of a simple networking tool named ‘curl' (https://curl.se). Each command is listed together with the corresponding BioBlend and BioBlend.objects code.
 We assume basic familiarity with HTTP request methods. For an overview, see the documentation at ‘https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'.
 Now, open a terminal window and let's make a few manual requests!
-6.1  Making a GET request 
+
+
+## 6.1  Making a GET request 
 
 This is a simplest type of request. We request data from a specific URL, but we do not provide any further information. In this example we request a listing of all our invocations.
 curl -H 'x-api-key: <API_KEY>' -X GET 'localhost:8080/api/invocations'
@@ -132,7 +104,9 @@ previews = obj_gi.invocations.get_previews()
 for preview in previews:
     print(preview.id)BioBlend.objects
 The above response would mean that our user only once invoked a workflow. The workflow's encoded ID is listed, as well as the encoded ID of the history containing this workflow. The state ‘new’ indicates that the request to invoke this workflow is still pending and that the invocation has not been scheduled yet.
-6.2  Making a GET request with query parameters 
+
+
+## 6.2  Making a GET request with query parameters 
 
 In this example we include two query parameters in our request, ‘limit’ and ‘include_terminal’. With ‘limit=5’ we limit the result to at most 5 invocations. With ‘include_terminal=False’ we indicate that invocations in a terminal state should be excluded from the results.
 curl -H 'x-api-key: <API_KEY>' \
@@ -142,7 +116,9 @@ print(invs)BioBlend
 invs = obj_gi.invocations.list(limit=5, include_terminal=False)
 for invocation in invs:
     print(invocation.id)BioBlend.objects
-6.3  Making a POST request with a payload 
+
+
+## 6.3  Making a POST request with a payload 
 
 curl -X POST \
     -H 'x-api-key: <API_KEY>' \
@@ -155,14 +131,19 @@ print(history)BioBlend
 history = obj_gi.histories.create('MyNewHistory')
 print(history.name)BioBlend.objects
 Note: For additional information regarding the difference between query parameters and the payload, see section 9.6.
-7  Hands On: Creating a BioBlend pull request 
+
+
+# 7  Hands On: Creating a BioBlend pull request 
 
 Note: This example is based on the pull request named “Improving Tools API coverage” in the BioBlend repository (https://github.com/galaxyproject/bioblend/pull/390).
 We will extend the BioBlend ‘ToolsClient’ class by adding a new method named ‘uninstall_dependencies'. This method will send a request to the Galaxy server to uninstall any dependencies for the tool specified by the user.
-7.1  Identifying the relevant Galaxy endpoint 
+
+
+## 7.1  Identifying the relevant Galaxy endpoint 
 
 We should check the Galaxy controller to verify whether this functionality is already implemented in the Galaxy API. Let's check the ‘dev' version of Galaxy. Our method interacts with the tools API, so let's check the ‘api/tools.py' file. It turns out that a corresponding ‘uninstall_dependencies' endpoint method is already available on Galaxy ‘dev'. Lucky us! If this was not the case, then we would first have to implement the endpoint in Galaxy before a BioBlend method could interact with it.
-7.2  Constructing the correct method signature 
+
+## 7.2  Constructing the correct method signature 
 
 Let's look at the signature of the endpoint method.
 def uninstall_dependencies(self, trans: GalaxyWebTransaction, id, **kwds):File api/tools.py, line 291
@@ -202,16 +183,18 @@ Our Bioblend method will receive this list of dictionaries encoded as JSON in th
 def install_dependencies(self, tool_id: str) -> List[dict]:
 The ‘self’ parameters corresponds to the ‘ToolsClient’ instance. The parameter ‘tool_id’ corresponds to the encoded ID of a given tool. This ID will be substituted in place of ‘{tool_id}’ in the request URL.
 Note: In Galaxy and BioBlend, encoded IDs are hexadecimal strings. See section 9.4 for additional information.
-7.3  Adding the method body 
+
+## 7.3  Adding the method body 
 
 Our method is part of the ‘ToolsClient' class. This means that our method has access to all its helper methods.
 Let's recall that the endpoint expects a DELETE request at URL ‘/api/tools/{tool_id}/dependencies'.
 To translate this into BioBlend source code, we do the following:
-•  We use the ‘self._make_url' helper method to construct a valid URL with the supplied 'tool_id' parameter. Finally, we need to append ‘/dependencies' for our endpoint.
+-  We use the ‘self._make_url' helper method to construct a valid URL with the supplied 'tool_id' parameter. Finally, we need to append ‘/dependencies' for our endpoint.
 url = self._make_url(tool_id) + '/dependencies'
-•  BioBlend clients include helper methods for making request of various types. In this case we want to make a DELETE request, so we use the ‘self._delete' helper method with our constructed URL as argument.  It also expects a ‘payload' argument. Our payload will be empty, since we use ‘tool_id' to construct the URL. This helper method automatically parses the JSON reponse into a python object, so we can directly return its result.
+-  BioBlend clients include helper methods for making request of various types. In this case we want to make a DELETE request, so we use the ‘self._delete' helper method with our constructed URL as argument.  It also expects a ‘payload' argument. Our payload will be empty, since we use ‘tool_id' to construct the URL. This helper method automatically parses the JSON reponse into a python object, so we can directly return its result.
 return self._delete(payload={}, url=url)
-7.4  Adding the docstring 
+
+## 7.4  Adding the docstring 
 
 We should document the method and its parameter for the user.
 """
@@ -230,7 +213,9 @@ In case certain versions of Galaxy do not support our method's functionality, we
     This method is only supported by Galaxy 19.09 or later.
 Previously we made sure that Galaxy ‘dev' supported our method. Let's now check if older versions of Galaxy also support it. At the time of writing, Galaxy 17.09 is the earliest version supported by BioBlend, so it makes sense to check it first. 
 It turns out the Galaxy 17.09 also supports our method! This means that all later versions do as well, and thus we do not need to add a note.
-7.5  Putting it all together 
+
+
+## 7.5  Putting it all together 
 
 def install_dependencies(self, tool_id: str) -> List[dict]:
     """
@@ -244,7 +229,8 @@ def install_dependencies(self, tool_id: str) -> List[dict]:
     """
     url = self._make_url(tool_id) + '/install_dependencies'
     return self._delete(payload={}, url=url)
-7.6  Writing a test for our new method 
+
+## 7.6  Writing a test for our new method 
 
 It is best to keep BioBlend tests simple. We need to check that we get an expected response, but testing minute details is unnecessary, since those are the responsiblity of the Galaxy server itself.
 Therefore, let's check that, when run on a given tool ID, the returned status indicates that the dependency is ‘null'. Let's reuse the tool ID ‘CONVERTER_fasta_to_bowtie_color_index' from the ‘test_tool_requirements' test method.
@@ -254,19 +240,23 @@ def test_tool_dependency_uninstall(self):
     )
     self.assertEqual(statuses[0]['model_class'], 'NullDependency')
 Note: It might sometimes be necessary to skip a test for Galaxy versions that do not support the tested functionality. See section 9.2 for additional information.
-8  Running the BioBlend tests 
+
+
+# 8  Running the BioBlend tests 
 
 Finally, we should run our test to make sure that it passes. This would indicate that our method works correctly. After testing we will be ready to push our changes to GitHub and open a pull request!
 This section outlines two approaches for running BioBlend tests: A simple approach that should suffice for basic testing, and a more involved approach that speeds up testing.
 Note: On our local machine we only test against Galaxy 'dev', so it might happen that tests on GitHub still fail because they test against all supported Galaxy versions. When this happens we simply need to update our changes to fix those errors as well.
-8.1  Approach 1: Using the ‘run_bioblend_tests.sh’ script 
+
+
+## 8.1  Approach 1: Using the ‘run_bioblend_tests.sh’ script 
 
 This script is provided in the repository and can be used to run the BioBlend tests. It works well for small tests that require little to no debugging or experimentation.
 Since BioBlend requires a Galaxy server, we must specify the path to the Galaxy server directory.
-•  -g <galaxy_path>
+-  -g <galaxy_path>
 Two useful optional parameters:
-•  -e <python_version>
-•  -t <path_to_test>
+-  -e <python_version>
+-  -t <path_to_test>
 We can specify a subset of tests to run by supplying this argument. This is specified in 'pytest' format. See the documentation for more information.
 Examples:
 Let's assume that our galaxy directory is ‘../galaxy_dev’.
@@ -279,16 +269,21 @@ And this command runs only the test named ‘test_get_jobs‘:
 -t tests/TestGalaxyJobs.py::TestGalaxyJobs::test_get_jobs
 Downside of this approach:
 The script starts and stops a new instance of the Galaxy server every time it is run. This makes it robust. However, it also means we have to wait for the server to start up every time. This makes it painful to debug more complicated tests.
-8.2  Approach 2: Running the tests directly 
+
+
+## 8.2  Approach 2: Running the tests directly 
 
 We can speed up our test environment by controlling the Galaxy server and the BioBlend tests directly. The initial setup will be more involved, but this way we can keep the server running in the background while we do our testing.
-8.2.1  Caveat 
+
+### 8.2.1  Caveat 
 
 When the Galaxy server is not reset between test runs, tests that implicitly depend on a clean server state might start failing after the first run. 
 For example, let's assume there is only a single test that creates a new history and checks that the total number of histories is equal to 1. This test will pass for a new Galaxy server because no histories exist yet. However, the next run there would be two histories and the test would fail.
 Although this is generally not a big issue, it is something to watch out for. There are a few BioBlend tests that will fail in this manner. Most of these tests measure an array length property that increases with every run and therefore fail after the first run.
 Note: It is preferable to write test that are robust in this regard!
-8.2.2  Starting the Galaxy server 
+
+
+### 8.2.2  Starting the Galaxy server 
 
 Open a terminal in the Galaxy base directory and execute the following commands:
 Note: We could of course collect the commands in a script, but for the sake of this tutorial they are presented one by one.
@@ -354,15 +349,20 @@ pytest --override-ini log_cli_level=$LOG_LEVEL \
 Step 6: We can leave the virtual environment when we are done testing
 deactivate
 Note: The temporary directory that we created will contain useful information for debugging tests, such as the ‘main.log' file and the ‘universe.sqlite' database.
-9  Tips 
+
+
+# 9  Tips 
 
 This sections contains additional tips on concepts that might be encountered in the course of BioBlend development.
-9.1  Difference between GalaxyInstance and objects.GalaxyInstance 
+
+## 9.1  Difference between GalaxyInstance and objects.GalaxyInstance 
 
 The ‘GalaxyInstance’ class represents an instance of a galaxy user session. It includes as member variables the various Galaxy API client modules.
 In the BioBlend tests, ‘self.gi’ corresponds to the ‘GalaxyInstance'.
 The exception to this rule is ‘TestGalaxyObjects.py’. This file contains tests for the various API wrapper classes of the BioBlend object-oriented API. These wrappers have their own version of the ‘GalaxyInstance’, namely the ‘objects.GalaxyInstance’ class, which includes additional functionality specific to the object-oriented API. In the ‘TestGalaxyObjects.py’ file, ‘self.gi’ points to the ‘objects.GalaxyInstance'. The normal ‘GalaxyInstance’ is accessed as ‘self.gi.gi’.
-9.2  Use of the ‘@test_util.skip_unless_galaxy’ decorator 
+
+
+## 9.2  Use of the ‘@test_util.skip_unless_galaxy’ decorator 
 
 On our local machine we mostly test our changes against a single version of Galaxy, for example 'dev'. However, the GitHub Actions Continuous Integration workflow runs the BioBlend tests against all supported versions of Galaxy.
 At the time of writing BioBlend supports Galaxy 17.09 and later. However, certain functionality might not be available in all these versions. For example, ‘download_dataset_collection' is only supported by Galaxy 18.01 and later. We don't want to run tests specific to this functionality on earlier versions of Galaxy. They would simply fail. We can skip a test for specific versions of Galaxy by adding the ‘@test_util.skip_unless_galaxy’ decorator above the test method in question.
@@ -370,34 +370,42 @@ Example:
 @test_util.skip_unless_galaxy('release_19.09')
 def test_some_functionality(self):
 This test will only be run against Galaxy 19.09 and later.
-9.3  Controllers versus managers in Galaxy 
+
+## 9.3  Controllers versus managers in Galaxy 
 
 The various API methods that are exposed to the outside are contained in controller classes. These contain the endpoint methods corresponding to the URLs of the Galaxy API. These endpoint methods handle the incoming requests from BioBlend.
 A focus for development of the Galaxy API is to make these controllers as “terse” as possible. This basically means that any logic not strictly required by the API endpoint method is moved to a corresponding manager class. This appreach seperates the API more cleanly from internal functionality.
 At the time of writing this transition is ongoing, therefore source code of methods for one controller might look and function differently than those of another controller. This might be encountered when debugging a failing request in BioBlend.
-9.4  IDs versus encoded IDs 
+
+## 9.4  IDs versus encoded IDs 
 
 The Galaxy server assigns a number ID to every entity, which serves as its unique identifier. For example, each workflow, tool, history and dataset is assigned a unique ID.
 The Galaxy server encodes interal IDs into hexademimal strings before sending them to external API clients. These are referred to as encoded IDs. BioBlend only deals with these encoded IDs.
-9.5  Galaxy API parameter formats 
+
+## 9.5  Galaxy API parameter formats 
 
 Implementing a BioBlend method often requires knowledge about the parameters which are accepted by the corresponding Galaxy API endpoint. At the time of writing there are a few different formats in which endpoints might accept their input parameters.
-9.5.1  Direct parameters 
+
+### 9.5.1  Direct parameters 
 
 A parameter can be specified explicitly in the signature of the endpoint method.
 Example:
 In the history API 'delete' endpoint method, the 'id' parameter is specified explicitly.
 def delete(self, trans, id, **kwd):
-9.5.2  Keywords parameters 
+
+### 9.5.2  Keywords parameters 
 
 Other parameters might get passed to the endpoint as an element of ‘kwd'. If the documentation of the endpoint is lacking, these keyword parameters can be painful to identify.
-9.5.3  The 'q' and 'qv' format 
+
+### 9.5.3  The 'q' and 'qv' format 
 
 Filtering parameters might also be expected as pairs of ‘q' and ‘qv' values. These are then parsed into filters by the Galaxy server. 
 The general format is ‘q={filter}-{operation}' and ‘qv={value}’. The accepted values for these parameters must be identified in order to construct valid ‘q' and ‘qv' pairs.
 Example:
 The Datasets API 'index' method uses this format. The ‘q' and ‘qv' parameters are passed to the endpoint as part of 'kwd'. They are not used in the endpoint itself, but rather implicitely passed into the ‘self.parse_filter_params' helper method as part of ‘kwd'.
-9.6  Params vs payload 
+
+
+## 9.6  Params vs payload 
 
 In BioBlend, the ‘Client._get’ method is used for GET requests. It takes a ‘params’ argument. The ‘Client._post’ and ‘Client._put’ helper methods make POST and PUT request respectively. They expect a ‘payload’ argument. In this section we briefly explain the difference.
 A HTTP request is comprised of (1) a request line, (2) headers with metadata, (3) an empty line and (4) an optional message body. The HTTP GET method uses query parameters to specify which resource should be retreived from the server. These parameters are included in the request line as part of the URL. The HTTP POST and PUT methods create or update resources. This data is specified in the payload, which is included in the message body of the request. 
@@ -424,7 +432,9 @@ Content-Length: 15
 Content-Type: application/x-www-form-urlencoded
 
 My name is curl Output of ‘ncat’
-9.7  Determining the Galaxy version in BioBlend 
+
+
+## 9.7  Determining the Galaxy version in BioBlend 
 
 In certain situations it might be useful to determine the version of the Galaxy server from BioBlend. We can determine the version using the ‘self.gi.config.get_version’ method.
 Example:
@@ -433,7 +443,8 @@ print('Newer version of Galaxy!')
 else:
 print('Older version of Galaxy!')
 An example where this is useful, at the time of writing, is the ‘download_dataset_collection’ method. It downloads a dataset collection as an archive file. Early versions of Galaxy return a ‘tar.gz’ archive. Later versions return a ‘zip’ archive. The BioBlend method uses the Galaxy version to determine the archive type.
-10  Conclusion 
+
+# 10  Conclusion 
 
 We covered the basics of BioBlend development.
 Compared to Galaxy, BioBlend is a smaller project with limited complexity. Changes are generally not very hard to implement, which makes it a good candidate for contributions from those not yet familiar with Galaxy in its entirety.
